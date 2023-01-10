@@ -5,13 +5,19 @@ function Book(title, Author, pages, finished) {
     this.title = title;
     this.author = Author;
     this.pages = pages;
-    this.finished = finished ? finished : false;
+    this.finished = (finished == "true") ? true : false;
 }
 Book.prototype.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.finished}`
 }
 Book.prototype.read = function () {
-    this.finished = this.finished ? false : true;
+    if (this.finished === true) {
+        this.finished = false;
+    } else {
+        this.finished = true;
+    }
+
+    storeBooks();
 }
 
 let myLiblary = [];
@@ -37,7 +43,6 @@ getBooks();
 function storeBooks() {
     for (let i = 0; i < myLiblary.length; i++) {
         const book = myLiblary[i];
-        console.log(book);
         localStorage.setItem(`book_nr_${i}_title`, book.title);
         localStorage.setItem(`book_nr_${i}_author`, book.author);
         localStorage.setItem(`book_nr_${i}_pages`, book.pages);
@@ -48,6 +53,7 @@ function storeBooks() {
 const liblary = $('main');
 
 function showBooks() {
+    liblary.innerHTML = '';
     for (let i = 0; i < myLiblary.length; i++) {
         const book = myLiblary[i];
         const article = document.createElement("article");
@@ -68,6 +74,8 @@ function showBooks() {
 
         const cirle = document.createElement('input');
         cirle.setAttribute('type', 'checkbox');
+        console.log(book.finished);
+        console.log(cirle);
 
         if (book.finished) {
             cirle.checked = true;
