@@ -1,0 +1,63 @@
+:root {
+    --sky-50: #f0f9ff;
+    --sky-100: #e0f2fe;
+    --sky-200: #bae6fd;
+    --sky-300: #7dd3fc;
+    --sky-400: #38bdf8;
+    --sky-500: #0ea5e9;
+    --sky-600: #0284c7;
+    --sky-700: #0369a1;
+    --sky-800: #075985;
+    --sky-900: #0c4a6e;
+    --grey: #e2e8f0;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--sky-50);
+    margin: 0px;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: minmax(100px, 1fr) 4fr;
+    height: 100%;
+}
+
+header {
+    background-color: var(--sky-100);
+    grid-column: span 3;
+    grid-row: span 1;
+    text-align: center;
+}
+header h1 {
+    font-size: 2.5rem;
+}
+header button {
+    height: 4rem;
+    border: none;
+    background-color: var(--sky-400);
+    color: var(--sky-100);
+    border-radius: 20px;
+    padding: 0px 20px 0px 20px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+main {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 20px;
+    gap: 20px;
+    grid-template-rows: 220px;
+    grid-auto-rows: 220px;
+    overflow: scroll;
+}
+main article {
+    border: 1px solid var(--sky-900);
+    border-radius: 25px;
+    background-color: var(--sky-50);
+    padding-left: 25px;
+}
