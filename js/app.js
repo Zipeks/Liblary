@@ -20,10 +20,15 @@ Book.prototype.read = function () {
     storeBooks();
 }
 
-let myLiblary = [];
+let myLibrary = [];
 
-function addToLiblary(book) {
-    myLiblary.push(book)
+function addToLibrary(book) {
+    myLibrary.push(book);
+}
+
+function removeFromLibrary(bookId) {
+    myLibrary.splice(bookId, 1);
+    storeBooks();
 }
 
 function getBooks() {
@@ -33,7 +38,7 @@ function getBooks() {
             localStorage.getItem(`book_nr_${i}_author`),
             localStorage.getItem(`book_nr_${i}_pages`),
             localStorage.getItem(`book_nr_${i}_finished`));
-        addToLiblary(book);
+        addToLibrary(book);
     }
 }
 getBooks();
@@ -41,21 +46,23 @@ getBooks();
 
 
 function storeBooks() {
-    for (let i = 0; i < myLiblary.length; i++) {
-        const book = myLiblary[i];
+    localStorage.clear();
+    for (let i = 0; i < myLibrary.length; i++) {
+        const book = myLibrary[i];
         localStorage.setItem(`book_nr_${i}_title`, book.title);
         localStorage.setItem(`book_nr_${i}_author`, book.author);
         localStorage.setItem(`book_nr_${i}_pages`, book.pages);
         localStorage.setItem(`book_nr_${i}_finished`, book.finished);
+        console.log(book);
     }
 }
 
-const liblary = $('main');
+const Library = $('main');
 
 function showBooks() {
-    liblary.innerHTML = '';
-    for (let i = 0; i < myLiblary.length; i++) {
-        const book = myLiblary[i];
+    Library.innerHTML = '';
+    for (let i = 0; i < myLibrary.length; i++) {
+        const book = myLibrary[i];
         const article = document.createElement("article");
 
         const title = document.createElement("h3");
@@ -74,8 +81,6 @@ function showBooks() {
 
         const cirle = document.createElement('input');
         cirle.setAttribute('type', 'checkbox');
-        console.log(book.finished);
-        console.log(cirle);
 
         if (book.finished) {
             cirle.checked = true;
@@ -89,9 +94,26 @@ function showBooks() {
         switcher.appendChild(cirle);
         switcher.appendChild(slider);
 
-        article.appendChild(switcher);
+        const finished = document.createElement('span');
+        finished.innerText = 'Read:';
 
-        liblary.appendChild(article);
+        const div = document.createElement('div');
+        div.classList.add('bookStatus')
+        div.appendChild(finished);
+        div.appendChild(switcher);
+        article.appendChild(div);
+
+        const remove = document.createElement('button');
+        remove.innerText = 'Remove book';
+        remove.classList.add('removeBtn')
+        remove.addEventListener('click', async function () {
+            await removeFromLibrary(i);
+            article.remove();
+        })
+
+        article.appendChild(remove);
+
+        Library.appendChild(article);
 
     }
 }

@@ -20,10 +20,70 @@ body {
 .wrapper {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: minmax(100px, 1fr) 4fr;
+    grid-template-rows: minmax(200px, 1fr) 8fr 65px;
     height: 100%;
 }
 
+.blackBackgroud {
+    display: none;
+}
+.blackBackground.active {
+    position: fixed;
+    display: block;
+    z-index: 3;
+    background-color: black;
+    opacity: 0.5;
+    height: 100vh;
+    width: 100vw;
+}
+.newBookDiv {
+    display: none;
+    background-color: var(--sky-100);
+    z-index: 5;
+    height: 350px;
+    width: 250px;
+    align-items: center;
+    justify-content: center;
+}
+.newBookDiv.active {
+    display: block;
+    position: fixed;
+    top: calc(50vh - 175px);
+    left: calc(50vw - 125px);
+    border: 3px solid var(--sky-900);
+    border-radius: 20px;
+}
+.newBookDiv div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.newBookDiv input {
+    height: 25px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--sky-900);
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+}
+.newBookDiv form {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 20px;
+}
+.newBookDiv button {
+    height: 50px;
+    width: 120px;
+    border-radius: 15px;
+    border: 1px solid var(--sky-900);
+    background-color: var(--sky-800);
+    color: var(--sky-50);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
 header {
     background-color: var(--sky-100);
     grid-column: span 3;
@@ -37,27 +97,58 @@ header button {
     height: 4rem;
     border: none;
     background-color: var(--sky-400);
-    color: var(--sky-100);
+    color: var(--sky-50);
     border-radius: 20px;
     padding: 0px 20px 0px 20px;
-    font-size: 2rem;
+    font-size: 3rem;
     cursor: pointer;
+    /* -webkit-text-stroke: 1px var(--sky-900); */
+    border: 1px solid var(--sky-900);
+    text-shadow: -1px -1px 0 var(--sky-900), 1px -1px 0 var(--sky-900),
+        -1px 1px 0 var(--sky-900), 1px 1px 0 var(--sky-900);
 }
+
 main {
     grid-column: 2/3;
     grid-row: 2/3;
-    background-color: aquamarine;
+    background-color: var(--sky-200);
+    border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     padding: 20px;
     gap: 20px;
     grid-template-rows: 220px;
     grid-auto-rows: 220px;
-    overflow: scroll;
+}
+@media screen and (max-width: 960px) {
+    main {
+        grid-column: 1/4;
+    }
 }
 main article {
     border: 1px solid var(--sky-900);
     border-radius: 25px;
     background-color: var(--sky-50);
     padding-left: 25px;
+}
+.bookStatus {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.removeBtn {
+    margin-top: 10px;
+}
+
+footer {
+    grid-column: span 3;
+    grid-row: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sky-700);
+    color: var(--sky-50);
+}
+footer a {
+    color: var(--sky-300);
 }
