@@ -13,8 +13,6 @@ document.addEventListener('click', function (event) {
     if ((!isClickInsideElement) && (!isClick2)) {
         newBookDiv.classList.remove('active');
         blackBackgroud.classList.remove('active');
-        // body.classList.remove('active');
-        // dimmer.classList.remove('active');
     }
 });
 

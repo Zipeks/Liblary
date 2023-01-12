@@ -1,11 +1,15 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function Book(title, Author, pages, finished) {
     this.title = title;
     this.author = Author;
     this.pages = pages;
-    this.finished = (finished == "true") ? true : false;
+    this.finished = finished;
 }
 Book.prototype.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.finished}`
@@ -53,7 +57,6 @@ function storeBooks() {
         localStorage.setItem(`book_nr_${i}_author`, book.author);
         localStorage.setItem(`book_nr_${i}_pages`, book.pages);
         localStorage.setItem(`book_nr_${i}_finished`, book.finished);
-        console.log(book);
     }
 }
 
@@ -61,7 +64,7 @@ const Library = $('main');
 
 function showBooks() {
     Library.innerHTML = '';
-    for (let i = 0; i < myLibrary.length; i++) {
+    for (let i = myLibrary.length - 1; i >= 0; i--) {
         const book = myLibrary[i];
         const article = document.createElement("article");
 
@@ -107,7 +110,11 @@ function showBooks() {
         remove.innerText = 'Remove book';
         remove.classList.add('removeBtn')
         remove.addEventListener('click', async function () {
+            article.style.transition = '0.3s';
+            article.style.opacity = '0';
+            await sleep(300);
             await removeFromLibrary(i);
+
             article.remove();
         })
 
